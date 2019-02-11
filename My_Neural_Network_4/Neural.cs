@@ -35,11 +35,13 @@ namespace My_Neural_Network_4
                 Output_of_hi[Hidden_Count] = Sigmoid(sum + Bias_to_hi[Hidden_Count]);
             }
 
-            for (int Output_Count = 0; Output_Count < Number_of_hiUnit; Output_Count++) {
+            //forprint(Output_of_hi);
+
+            for (int Output_Count = 0; Output_Count < Number_of_ouUnit; Output_Count++) {
                 double sum = 0;
-                for (int Hidden_Count = 0; Hidden_Count< Number_of_inUnit; Hidden_Count++)
+                for (int Hidden_Count = 0; Hidden_Count < Number_of_hiUnit; Hidden_Count++)
                     sum += Weigth_to_ou[Output_Count, Hidden_Count] * Output_of_hi[Hidden_Count];
-                Output_of_hi[Output_Count] = Sigmoid(sum + Bias_to_hi[Output_Count]);
+                Output_of_ou[Output_Count] = Sigmoid(sum + Bias_to_hi[Output_Count]);
             }
 
             return Output_of_ou;
@@ -48,10 +50,10 @@ namespace My_Neural_Network_4
         public void BackPropagation(double[] Input, double[] Answer) {
             double[] Delta_ou = new double[Number_of_ouUnit];
             double[] Delta_hi = new double[Number_of_hiUnit];
-            double Eps = 1;
-            double Mu = 2;
+            double Eps = 0.8;
+            double Mu = 0.75;
 
-            for (int i = 0; i < Number_of_hiUnit; i++) {
+            for (int i = 0; i < Number_of_ouUnit; i++) {
                 Delta_ou[i] = (Answer[i] - Output_of_ou[i]) * Output_of_ou[i] + (1.0 - Output_of_ou[i]);
             }
 
@@ -83,6 +85,11 @@ namespace My_Neural_Network_4
                 Bias_to_hi[i] += Bias_to_hi_mod[i];
             }
 
+        }
+        void forprint(double[] x) {
+            foreach (double e in x)
+                Console.Write(e);
+            Console.WriteLine();
         }
     }
 }
