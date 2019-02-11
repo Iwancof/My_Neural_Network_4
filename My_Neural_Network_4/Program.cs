@@ -5,7 +5,7 @@ namespace My_Neural_Network_4
     class Program
     {
         static void Main(string[] args) {
-            Neural n = new Neural(3,4,2);
+            Neural n = new Neural(new int[]{ 3, 4, 2 });
 
             double[][] InputData = new double[][] {
                 new double[] { 0.0, 0.0, 0.0},
@@ -36,10 +36,10 @@ namespace My_Neural_Network_4
             };
             */
 
-            for(int i = 0;i < 10000; i++) {
+            for(int i = 0;i < 10; i++) {
                 for(int j = 0;j < 8; j++) {
                     n.ForwardPropagation(InputData[j],Answer[j]);
-                    n.BackPropagation(InputData[j], Answer[j]);
+                    //n.BackPropagation(InputData[j], Answer[j]);
                 }
                 //Console.WriteLine(n.GetError());
             }

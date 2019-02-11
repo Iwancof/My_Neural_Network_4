@@ -6,21 +6,27 @@ namespace My_Neural_Network_4
 {
     public partial class Neural
     {
+        public int Number_of_hiLayer;
+
         public int Number_of_inUnit;
-        public int Number_of_hiUnit;
+        public int[] Number_of_hiUnit;
         public int Number_of_ouUnit;
+        public int[] Number_of_Unit;
 
         public double[] Output_of_in;
-        public double[] Output_of_hi;
+        //public double[] Output_of_hi;
+        public double[][] Output_of_hi;
         public double[] Output_of_ou;
 
-        public double[,] Weigth_to_hi;
-        public double[,] Weigth_to_hi_mod;
+        //public double[,] Weigth_to_hi;
+        //public double[,] Weigth_to_hi_mod;
+        public double[][,] Weigth_to_hi;
+        public double[][,] Weigth_to_hi_mod;
         public double[,] Weigth_to_ou;
         public double[,] Weigth_to_ou_mod;
 
-        public double[] Bias_to_hi;
-        public double[] Bias_to_hi_mod;
+        public double[][] Bias_to_hi;
+        public double[][] Bias_to_hi_mod;
         public double[] Bias_to_ou;
         public double[] Bias_to_ou_mod;
 
@@ -30,16 +36,22 @@ namespace My_Neural_Network_4
             Output_of_in = (double[])Input.Clone();
 
             //Input -> Hidden
-            for(int Hidden_Count = 0;Hidden_Count < Number_of_hiUnit; Hidden_Count++) {
-                double sum = 0.0;
-                for(int Input_Count = 0;Input_Count< Number_of_inUnit; Input_Count++) 
-                    sum += Weigth_to_hi[Hidden_Count, Input_Count] * Output_of_in[Input_Count];
-                Output_of_hi[Hidden_Count] = Sigmoid(sum + Bias_to_hi[Hidden_Count]);
+            for (int Hidden_Layer_Count = 1; Hidden_Layer_Count < Number_of_Unit.Length - 1; Hidden_Layer_Count++) {
+                for (int Hidden_Count = 0; Hidden_Count < Number_of_Unit[Hidden_Layer_Count]; Hidden_Count++) {
+                    double sum = 0.0;
+                    for (int Previous_Count= 0; Previous_Count < Number_of_Unit[Hidden_Layer_Count - 1]; Previous_Count++)
+                        sum += Weigth_to_hi[Hidden_Layer_Count -1][Hidden_Count, Previous_Count] * ((Hidden_Layer_Count == 1) ? Input : Output_of_hi[Hidden_Layer_Count - 1])[Previous_Count];
+                    Output_of_hi[Hidden_Layer_Count][Hidden_Count] = Sigmoid(sum + Bias_to_hi[Hidden_Layer_Count][Hidden_Count]);
+                    Console.WriteLine(Output_of_hi[Hidden_Layer_Count][Hidden_Count]);
+                }
             }
+
+            return new double[] { };
 
             //forprint(Output_of_hi);
 
             //Hidden -> Output
+            /*
             for (int Output_Count = 0; Output_Count < Number_of_ouUnit; Output_Count++) {
                 double sum = 0.0;
                 for (int Hidden_Count = 0; Hidden_Count < Number_of_hiUnit; Hidden_Count++)
@@ -49,7 +61,6 @@ namespace My_Neural_Network_4
 
             for (int i = 0; i < Number_of_ouUnit; i++)
                 Error += Math.Pow(Answer[i] - Output_of_ou[i],2);
-            
             return Output_of_ou;
         }
 
@@ -102,6 +113,7 @@ namespace My_Neural_Network_4
             double r = Error;
             Error = 0.0;
             return r;
+            */
         }
     }
 }
