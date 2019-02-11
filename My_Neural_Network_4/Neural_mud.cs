@@ -48,7 +48,7 @@ namespace My_Neural_Network_4
         }
 
         public double Sigmoid(double x) {
-            return 1d / (1 + Math.Exp(-x));
+            return 1.0 / (1.0 + Math.Exp(-x));
         }
     }
 }
