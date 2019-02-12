@@ -24,7 +24,7 @@ namespace My_Neural_Network_4
         public double[] Bias_to_ou;
         public double[] Bias_to_ou_mod;
 
-        double Error = 0.0;
+        public double Error = 0.0;
 
         public double[] ForwardPropagation(double[] Input,double[] Answer) {
             Output_of_in = (double[])Input.Clone();
@@ -61,7 +61,7 @@ namespace My_Neural_Network_4
             }
 
             for (int i = 0; i < Number_of_ouUnit; i++)
-                Error += Math.Pow(Answer[i] - Output_of_ou[i],2);
+                Error += Math.Abs(Answer[i] - Output_of_ou[i]);
             
             return Output_of_ou;
         }
