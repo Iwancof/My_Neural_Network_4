@@ -27,6 +27,7 @@ namespace My_Neural_Network_4
                 for (int j = 0; j < Number_of_inUnit; j++) {
                     //Weigth_to_hi[i, j] = random.Next(0, 1000) / 1000d;
                     Weigth_to_hi[i, j] = Math.Sign(random.NextDouble() - 0.5) * random.NextDouble();
+                    Console.WriteLine(Weigth_to_hi[i, j]);
                     Weigth_to_hi_mod[i, j] = 0;
                 }
                 Bias_to_hi[i] = Math.Sign(random.NextDouble() - 0.5) * random.NextDouble();
