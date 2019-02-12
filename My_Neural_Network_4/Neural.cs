@@ -28,15 +28,24 @@ namespace My_Neural_Network_4
 
         public double[] ForwardPropagation(double[] Input,double[] Answer) {
             Output_of_in = (double[])Input.Clone();
-            /*foreach (double x in Output_of_in)
+
+            /*
+            foreach (double x in Output_of_in)
                 Console.Write(x + ":");
-            Console.WriteLine("Data");*/
+            Console.WriteLine("Data");
+            */
+
             //Input -> Hidden
             for(int Hidden_Count = 0;Hidden_Count < Number_of_hiUnit; Hidden_Count++) {
                 double sum = 0.0;
-                for(int Input_Count = 0;Input_Count< Number_of_inUnit; Input_Count++) 
+                for (int Input_Count = 0; Input_Count < Number_of_inUnit; Input_Count++) {
                     sum += Weigth_to_hi[Hidden_Count, Input_Count] * Output_of_in[Input_Count];
+                    //Console.WriteLine("Weight : " + Weigth_to_hi[Hidden_Count, Input_Count]);
+                    //Console.WriteLine("Answer : " + Output_of_in[Input_Count]); 
+                    //Console.WriteLine("Calc sum : " + sum);
+                }
                 Output_of_hi[Hidden_Count] = Sigmoid(sum + Bias_to_hi[Hidden_Count]);
+                //Console.WriteLine("Sum:" + sum);
                 //Console.WriteLine(sum);
                 //Console.WriteLine(Output_of_hi[Hidden_Count]);
             }
@@ -64,7 +73,8 @@ namespace My_Neural_Network_4
             double Mu = 0.8;
 
             for (int i = 0; i < Number_of_ouUnit; i++) {
-                Delta_ou[i] = (Answer[i] - Output_of_ou[i]) * Output_of_ou[i] + (1.0 - Output_of_ou[i]);
+                Delta_ou[i] = (Answer[i] - Output_of_ou[i]) * Output_of_ou[i] * (1.0 - Output_of_ou[i]);
+                //Console.WriteLine(Delta_ou[i]);
             }
 
             for (int i = 0; i < Number_of_hiUnit; i++) {

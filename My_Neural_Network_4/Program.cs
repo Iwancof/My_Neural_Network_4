@@ -13,18 +13,27 @@ namespace My_Neural_Network_4
         }
 
         static void Main(string[] args) {
-            Neural n = new Neural(2, 2, 1);
+            Neural n = new Neural(4, 20, 3);
 
-            /*double[][] InputData = new double[][] {
-                new double[] { 0.0, 0.0, 0.0},
-                new double[] { 0.0, 0.0, 1.0},
-                new double[] { 0.0, 1.0, 0.0},
-                new double[] { 0.0, 1.0, 1.0},
-                new double[] { 1.0, 0.0, 0.0},
-                new double[] { 1.0, 0.0, 1.0},
-                new double[] { 1.0, 1.0, 0.0},
-                new double[] { 1.0, 1.0, 1.0},
-            };*/
+            double[][] InputData = new double[][] {
+                new double[] { 0.0, 0.0, 0.0, 0.0},
+                new double[] { 0.0, 0.0, 0.0, 1.0},
+                new double[] { 0.0, 0.0, 1.0, 0.0},
+                new double[] { 0.0, 0.0, 1.0, 1.0},
+                new double[] { 0.0, 1.0, 0.0, 0.0},
+                new double[] { 0.0, 1.0, 0.0, 1.0},
+                new double[] { 0.0, 1.0, 1.0, 0.0},
+                new double[] { 0.0 ,1.0, 1.0, 1.0},
+                new double[] { 1.0, 0.0, 0.0, 0.0},
+                new double[] { 1.0, 0.0, 0.0, 1.0},
+                new double[] { 1.0, 0.0, 1.0, 0.0},
+                new double[] { 1.0, 0.0, 1.0, 1.0},
+                new double[] { 1.0, 1.0, 0.0, 0.0},
+                new double[] { 1.0, 1.0, 0.0, 1.0},
+                new double[] { 1.0, 1.0, 1.0, 0.0},
+                //new double[] { 1.0, 1.0, 1.0, 1.0},
+            };
+            /*
             double[][] InputData = new double[][] {
                 new double[] { 0.0, 0.0},
                 new double[] { 1.0, 0.0},
@@ -37,6 +46,40 @@ namespace My_Neural_Network_4
                 new double[] { 1.0},
                 new double[] { 0.0},
             };
+            */
+
+            double[][] Answer = new double[][] {
+                new double[] { 0.0, 0.0, 0.0 },
+                new double[] { 0.0, 0.0, 1.0 },
+                new double[] { 0.0, 0.0, 1.0 },
+                new double[] { 0.0, 1.0, 0.0 },
+                new double[] { 0.0, 0.0, 1.0 },
+                new double[] { 0.0, 1.0, 0.0 },
+                new double[] { 0.0, 1.0, 0.0 },
+                new double[] { 0.0, 1.0, 1.0 },
+
+                new double[] { 0.0, 0.0, 1.0 },
+                new double[] { 0.0, 1.0, 0.0 },
+                new double[] { 0.0, 1.0, 0.0 },
+                new double[] { 0.0, 1.0, 1.0 },
+                new double[] { 0.0, 1.0, 0.0 },
+                new double[] { 0.0, 1.0, 1.0 },
+                new double[] { 0.0, 1.0, 1.0 },
+                //new double[] { 1.0, 0.0, 0.0 },
+
+                /*
+                new double[] { 1.0, 0.0, 0.0, 0.0},
+                new double[] { 1.0, 0.0, 0.0, 1.0},
+                new double[] { 1.0, 0.0, 1.0, 0.0},
+                new double[] { 1.0, 0.0, 1.0, 1.0},
+                new double[] { 1.0, 1.0, 0.0, 0.0},
+                new double[] { 1.0, 1.0, 0.0, 1.0},
+                new double[] { 1.0, 1.0, 1.0, 0.0},
+                new double[] { 1.0, 1.0, 1.0, 1.0},
+                */
+            };
+
+
 
             //double[][] InputData = new double[32][];
             /*
@@ -48,9 +91,10 @@ namespace My_Neural_Network_4
             };
             */
 
-            int DataNumber = 4;
+            int DataNumber = 15;
+            int UnitNumber = 3;
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 10000; i++) {
                 for (int j = 0; j < DataNumber; j++) {
                     n.ForwardPropagation(InputData[j], Answer[j]);
                     n.BackPropagation(InputData[j], Answer[j]);
@@ -58,24 +102,30 @@ namespace My_Neural_Network_4
                 //Console.WriteLine(n.GetError());
             }
 
-            double[,] Output = new double[DataNumber,1];
-            double[] Average = new double[1];
+            Console.WriteLine("Train Finished");
+
+            double[,] Output = new double[DataNumber,UnitNumber];
+            double[] Average = new double[UnitNumber];
 
             for (int i = 0; i < DataNumber; i++) {
                 double[] Tmp = n.ForwardPropagation(InputData[i], Answer[i]);
-                for (int j = 0; j < 1; j++) {
+                for (int j = 0; j < UnitNumber; j++) {
                     Output[i, j] = Tmp[j];
                     Average[j] += Tmp[j];
                 }               
             }
 
-            Average[0] /= DataNumber;
+            //Average[0] /= DataNumber;
             //Average[1] /= DataNumber;
 
 
 
             for (int i = 0;i < DataNumber; i++) {
-                
+                for(int count = 0;count < UnitNumber; count++) {
+                    Console.Write(Math.Abs(Answer[i][count] - Output[i, count]) + ":");
+                }
+                Console.WriteLine();
+                /*
                 foreach(double x in InputData[i]) {
                     Console.Write(x + ":");
                 }
@@ -86,10 +136,12 @@ namespace My_Neural_Network_4
                 }
                 Console.WriteLine();
 
-                for (int j = 0; j < 1; j++)
+                for (int j = 0; j < 2; j++)
                     Console.Write(Output[i, j] + ":");
                 Console.WriteLine();
-                
+
+                Console.WriteLine("\n");
+                */
                 /*
                 for (int j = 0; j < 2; j++)
                     Console.Write((Output[i, j] > Average[j] ? 1 : 0) + ":"); 
@@ -103,6 +155,12 @@ namespace My_Neural_Network_4
                 Console.WriteLine();
                 */
             }
+
+            Console.WriteLine("test");
+
+            foreach (double x in n.ForwardPropagation(new double[] { 1.0, 1.0, 1.0, 1.0 }, new double[] { 0.0, 0.0, 0.0, 0.0 }))
+                Console.Write(x + ":");
+            Console.WriteLine();
 
 
             Console.WriteLine("Finished");

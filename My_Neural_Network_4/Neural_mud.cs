@@ -27,11 +27,14 @@ namespace My_Neural_Network_4
                 for (int j = 0; j < Number_of_inUnit; j++) {
                     //Weigth_to_hi[i, j] = random.Next(0, 1000) / 1000d;
                     Weigth_to_hi[i, j] = Math.Sign(random.NextDouble() - 0.5) * random.NextDouble();
-                    Console.WriteLine(Weigth_to_hi[i, j]);
-                    Weigth_to_hi_mod[i, j] = 0;
+                    //Weigth_to_hi[i, j] = 0.3;
+                    //Console.WriteLine(Weigth_to_hi[i, j]);
+                    //Weigth_to_hi_mod[i, j] = 0;
                 }
                 Bias_to_hi[i] = Math.Sign(random.NextDouble() - 0.5) * random.NextDouble();
-                Bias_to_hi_mod[i] = 0;
+                //Console.WriteLine(Bias_to_hi[i]);
+                //Bias_to_hi[i] = 0.3;
+                //Bias_to_hi_mod[i] = 0;
             }
 
             Weigth_to_ou = new double[Number_of_ouUnit, Number_of_hiUnit];
@@ -41,11 +44,16 @@ namespace My_Neural_Network_4
             for (int i = 0; i < Number_of_ouUnit; i++) {
                 for (int j = 0; j < Number_of_hiUnit; j++) {
                     Weigth_to_ou[i, j] = Math.Sign(random.NextDouble() - 0.5) * random.NextDouble();
-                    Weigth_to_ou_mod[i, j] = 0;
+                    //Weigth_to_ou[i, j] = 0.3;
+                    //Console.WriteLine(Weigth_to_ou[i, j]);
+                    //Weigth_to_ou_mod[i, j] = 0;
                 }
                 Bias_to_ou[i] = Math.Sign(random.NextDouble() - 0.5) * random.NextDouble();
-                Bias_to_ou_mod[i] = 0;
+                //Console.WriteLine(Bias_to_ou[i]);
+                //Bias_to_ou[i] = 0.3;
+                //Bias_to_ou_mod[i] = 0;
             }
+            //Console.WriteLine("Init");
         }
 
         public double Sigmoid(double x) {
