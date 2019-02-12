@@ -48,6 +48,7 @@ namespace My_Neural_Network_4
             };
             */
 
+
             double[][] Answer = new double[][] {
                 new double[] { 0.0, 0.0, 0.0 },
                 new double[] { 0.0, 0.0, 1.0 },
